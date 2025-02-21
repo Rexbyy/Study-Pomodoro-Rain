@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicky Rain</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Patrick+Hand&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap');
+
+        body {
+            background: linear-gradient(to bottom, #ffb6c1, #ffa07a);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Patrick Hand', cursive;
+            overflow: hidden;
+            color: white;
+            position: relative;
+        }
+        .timer-container {
+            background: rgba(15, 15, 80, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        button {
+            background: #ff69b4;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <div class="title">Pomodoro Timer</div>
+        <div class="time" id="timer">25:00</div>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="setBreak(5)">5 min Break</button>
+        <button onclick="setBreak(10)">10 min Break</button>
+    </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Patrick+Hand&display=swap');
+        body {
+            background: url('https://assets.onecompiler.app/42dxzwq44/439ryupvn/DALL%C2%B7E%202025-02-22%2001.32.25%20-%20A%20cozy%20pixel-art%20scene%20of%20a%20nighttime%20aesthetic%20window%20view.%20The%20window%20has%20warm%20glowing%20curtains,%20and%20outside%20is%20a%20peaceful%20cityscape%20with%20twinkling.png');
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Patrick Hand', cursive;
+            overflow: hidden;
+            color: white;
+            position: relative;
+        }
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+        .drop {
+            position: absolute;
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            bottom: 100%;
+            animation: rain-fall linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes rain-fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        .effect {
+            position: absolute;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 2s ease-out;
+        }
+        .bubble {
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float-up 2s ease-out forwards;
+        }
+        .firefly {
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            box-shadow: 0 0 15px yellow;
+            animation: glow 1.5s infinite alternate, fade-out 3s ease-out forwards;
+        }
+        .keyboard-switch {
+            font-size: 24px;
+            animation: fade-out 2s ease-out forwards;
+        }
+        @keyframes float-up {
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+        @keyframes glow {
+            from {
+                opacity: 0.5;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fade-out {
+            to {
+                opacity: 0;
+            }
+        }
+        button {
+            font-size: 24px;
+            font-family: Courier New;
+            padding: 10px 20px;
+            border: 4px dashed #F3F9FF;
+            border-radius: 20px;
+            background: #B57AA3;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        button::before {
+            content: '✨💖';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 18px;
+        }
+        button::after {
+            content: '💖✨';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 18px;
+        }
+        select, input[type="range"] {
+            font-size: 15px;
+            padding: 5px;
+            border-radius: 10px;
+            margin-top: 10px;
+            color: rgb(101,138,162);
+        }
+    </style>
+    <div class="rain" id="rain"></div>
+    <h1>Click for Satisfaction ✨</h1>
+    <button id="clickButton">Click Me!</button>
+    <button id="fullscreenButton">Go Fullscreen</button>
+    <select id="soundSelect">
+        <option value="keyboard">Keyboard</option>
+        <option value="bubbly">Bubbly</option>
+        <option value="sparkly">Sparkly</option>
+    </select>
+    <div class="volume-container">
+    <label for="volumeControl">Rain Volume:</label>
+    <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1">
+</div>
+    <audio id="rainSound" src="https://www.soundjay.com/nature/rain-01.mp3" loop autoplay></audio>
+    <script>
+        let timer;
+        let minutes = 25;
+        let seconds = 0;
+        let running = false;
+
+        function updateDisplay() {
+            document.getElementById('timer').innerText = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (!running) {
+                running = true;
+                timer = setInterval(() => {
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(timer);
+                            running = false;
+                        } else {
+                            minutes--;
+                            seconds = 59;
+                        }
+                    } else {
+                        seconds--;
+                    }
+                    updateDisplay();
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timer);
+            running = false;
+        }
+
+        function setBreak(min) {
+            clearInterval(timer);
+            running = false;
+            minutes = min;
+            seconds = 0;
+            updateDisplay();
+        }
+    </script>
+    <script>
+        const rainContainer = document.getElementById("rain");
+        function createRain() {
+            for (let i = 0; i < 200; i++) {
+                let drop = document.createElement("div");
+                drop.classList.add("drop");
+                drop.style.left = Math.random() * 100 + "vw";
+                drop.style.animationDuration = (Math.random() * 1 + 1) + "s";
+                rainContainer.appendChild(drop);
+            }
+        }
+        createRain();
+
+        const button = document.getElementById("clickButton");
+        const soundSelect = document.getElementById("soundSelect");
+        const rainSound = document.getElementById("rainSound");
+        const volumeControl = document.getElementById("volumeControl");
+
+        volumeControl.addEventListener("input", () => {
+            rainSound.volume = volumeControl.value;
+        });
+        
+        const sounds = {
+            keyboard: new Audio("https://github.com/Rexbyy/mp3-files/raw/main/mixkit-single-key-type-2533.mp3"),
+            bubbly: new Audio("https://github.com/Rexbyy/mp3-files/raw/main/mixkit-soap-bubble-sound-mp3.mp3"),
+            sparkly: new Audio("https://github.com/Rexbyy/mp3-files/raw/main/mixkit-magic-wand-sparkle-3062mp3.mp3")
+        };
+        
+        button.addEventListener("click", () => {
+            const selectedSound = soundSelect.value;
+            sounds[selectedSound].currentTime = 0;
+            sounds[selectedSound].play();
+            createEffect(selectedSound);
+        });
+        function createEffect(type) {
+            let effect = document.createElement("div");
+            effect.classList.add("effect");
+            effect.style.left = Math.random() * 100 + "vw";
+            effect.style.top = Math.random() * 100 + "vh";
+            
+            if (type === "bubbly") {
+                effect.classList.add("bubble");
+            } else if (type === "sparkly") {
+                effect.classList.add("firefly");
+            } else if (type === "keyboard") {
+                effect.textContent = "⌨️";
+                effect.classList.add("keyboard-switch");
+            }
+            
+            document.body.appendChild(effect);
+            setTimeout(() => effect.remove(), 3000);
+        }
+    </script>
+
+</script>
+</body>
+</html>
