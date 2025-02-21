@@ -1,20 +1,22 @@
-body{
-  padding: 25px;
+function showTime() {
+	document.getElementById('currentTime').innerHTML = new Date().toUTCString();
 }
-.title {
-	color: #5C6AC4;
-}
-.volume-container {
-    position: absolute;
-    top: 20px; /* Adjust this value for vertical positioning */
-    left: 20px; /* Adjust this value for horizontal positioning */
-    background: rgba(15, 15, 80, 0.6);
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    z-index: 1000; /* Ensure it appears above other elements */
-}
-html, body {
-    height: 100%;
-    margin: 0;
-}
+showTime();
+setInterval(function () {
+	showTime();
+}, 1000);
+document.getElementById("fullscreenButton").onclick = function() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+};
+window.onload = function() {
+    createRain();
+};
+
