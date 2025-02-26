@@ -6,7 +6,7 @@ body{
 }
 .volume-container {
     position: absolute;
-    top: 20px; /* Adjust this value for vertical positioning */
+    top: 10px; /* Adjust this value for vertical positioning */
     left: 20px; /* Adjust this value for horizontal positioning */
     background: rgba(15, 15, 80, 0.6);
     padding: 10px;
